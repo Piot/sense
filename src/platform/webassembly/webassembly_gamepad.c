@@ -25,10 +25,10 @@ SOFTWARE.
 */
 #include <emscripten/html5.h>
 
+#include <clog/clog.h>
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
-#include <tyran/tyran_clib.h>
-#include <tyran/tyran_log.h>
+#include <tiny_libc/tiny_libc.h>
 #include <tyran/tyran_types.h>
 
 #include "webassembly_gamepad.h"
@@ -53,7 +53,7 @@ static const int button_max_value = 100;
 
 void sense_webassembly_gamepad_init(sense_webassembly_gamepad* self)
 {
-	tyran_mem_clear_type(self);
+	tc_mem_clear_type(self);
 	self->bound_gamepad_index = 0xff;
 }
 
@@ -88,7 +88,7 @@ void sense_webassembly_gamepad_poll(sense_webassembly_gamepad* self)
 
 		if (self->bound_gamepad_index == 0xff && (menu > 0.1f || bind)) {
 			self->bound_gamepad_index = gamepad_index;
-			TYRAN_LOG_INFO("Bound gamepad to %d", self->bound_gamepad_index);
+			CLOG_INFO("Bound gamepad to %d", self->bound_gamepad_index);
 		}
 		if (self->bound_gamepad_index == 0xff) {
 			continue;

@@ -26,13 +26,13 @@ SOFTWARE.
 #ifndef sense_input_manager_h
 #define sense_input_manager_h
 
-#include <nimbus/nimbus_size2i.h>
+#include <basal/basal_size2i.h>
 #include <sense/sense_touches.h>
 
 struct sense_input;
 
 typedef void (*sense_input_update_fn)(void* driver, struct sense_input* input);
-typedef void (*sense_input_touch_fn)(void* driver, size_t id, sense_touch_phase phase, nimbus_vector2i position);
+typedef void (*sense_input_touch_fn)(void* driver, size_t id, sense_touch_phase phase, bl_vector2i position);
 
 typedef struct sense_input_driver {
 	void* self;
@@ -40,8 +40,8 @@ typedef struct sense_input_driver {
 	sense_input_touch_fn touch_fn;
 } sense_input_driver;
 
-void sense_input_manager_create_platform_driver(sense_input_driver* self, nimbus_size2i screen_size);
+void sense_input_manager_create_platform_driver(sense_input_driver* self, bl_size2i screen_size);
 void sense_input_manager_update(sense_input_driver* self, struct sense_input* input);
-void sense_input_manager_touch(sense_input_driver* self, size_t id, sense_touch_phase phase, nimbus_vector2i position);
+void sense_input_manager_touch(sense_input_driver* self, size_t id, sense_touch_phase phase, bl_vector2i position);
 
 #endif

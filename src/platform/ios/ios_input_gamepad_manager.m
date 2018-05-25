@@ -25,7 +25,7 @@ SOFTWARE.
 */
 #import <GameController/GameController.h>
 #include <sense/sense_input.h>
-#include <tyran/tyran_log.h>
+#include <clog/clog.h>
 
 static GCController* findController()
 {

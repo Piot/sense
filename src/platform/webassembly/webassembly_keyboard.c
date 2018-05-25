@@ -26,10 +26,10 @@ SOFTWARE.
 #include "webassembly_keyboard.h"
 #include <emscripten/html5.h>
 
+#include <clog/clog.h>
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
-#include <tyran/tyran_clib.h>
-#include <tyran/tyran_log.h>
+#include <tiny_libc/tiny_libc.h>
 #include <tyran/tyran_types.h>
 
 static int string_is_equal(const char* a, const char* b)
@@ -87,7 +87,7 @@ static int handle_known_keys(const char* keyname)
 
 static EM_BOOL on_key(sense_webassembly_keys* self, const EmscriptenKeyboardEvent* keyEvent, tyran_boolean state)
 {
-	TYRAN_LOG_INFO("Detected key! %s", keyEvent->key);
+	CLOG_INFO("Detected key! %s", keyEvent->key);
 	if (keyEvent->repeat) {
 		return EM_FALSE;
 	}
@@ -114,8 +114,8 @@ static EM_BOOL on_key_up(int eventType, const EmscriptenKeyboardEvent* keyEvent,
 
 void sense_webassembly_keys_init(sense_webassembly_keys* self, const char* node)
 {
-	TYRAN_OUTPUT("Setting callbacks!");
-	tyran_mem_clear_type(self);
+	CLOG_OUTPUT("Setting callbacks!");
+	tc_mem_clear_type(self);
 	emscripten_set_keydown_callback(node, self, 1, on_key_down);
 	emscripten_set_keyup_callback(node, self, 1, on_key_up);
 }

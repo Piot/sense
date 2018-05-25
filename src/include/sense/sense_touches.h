@@ -26,8 +26,8 @@ SOFTWARE.
 #ifndef sense_touches_h
 #define sense_touches_h
 
-#include <nimbus/nimbus_vector2.h>
-#include <tyran/mutex/nimbus_mutex.h>
+#include <basal/basal_vector2.h>
+#include <tyran/mutex/tyran_mutex.h>
 
 typedef enum sense_touch_phase {
 	sense_touch_phase_began,
@@ -38,12 +38,12 @@ typedef enum sense_touch_phase {
 
 typedef struct sense_touch {
 	size_t identifier;
-	nimbus_vector2i position;
+	bl_vector2i position;
 	enum sense_touch_phase phase;
 } sense_touch;
 
 typedef struct sense_touches {
-	nimbus_mutex mutex;
+	tyran_mutex mutex;
 	sense_touch touches[64];
 	size_t touch_count;
 	size_t max_touch_count;
@@ -51,7 +51,7 @@ typedef struct sense_touches {
 
 void sense_touches_init(sense_touches* self);
 
-void sense_touches_add(sense_touches* self, size_t identifier, sense_touch_phase phase, nimbus_vector2i position);
+void sense_touches_add(sense_touches* self, size_t identifier, sense_touch_phase phase, bl_vector2i position);
 
 void sense_touches_reset(sense_touches* self);
 

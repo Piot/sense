@@ -26,15 +26,15 @@ SOFTWARE.
 #ifndef sense_webassembly_touches_h
 #define sense_webassembly_touches_h
 
-#include <nimbus/nimbus_size2i.h>
+#include <basal/basal_size2i.h>
 #include <sense/sense_touches.h>
 
 typedef struct sense_webassembly_touches {
 	sense_touches touches;
-	nimbus_size2i screen_size;
+	bl_size2i screen_size;
 } sense_webassembly_touches;
 
-void sense_webassembly_touches_init(sense_webassembly_touches* self, const char* node, nimbus_size2i screen_size);
+void sense_webassembly_touches_init(sense_webassembly_touches* self, const char* node, bl_size2i screen_size);
 void sense_webassembly_touches_clear(sense_webassembly_touches* self);
 
 #endif

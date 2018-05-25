@@ -27,8 +27,8 @@ SOFTWARE.
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
 
-#include <tyran/tyran_clib.h>
-#include <tyran/tyran_log.h>
+#include <clog/clog.h>
+#include <tiny_libc/tiny_libc.h>
 
 static tyran_boolean key_is_pressed(const sense_keyboard_keys* keys)
 {
@@ -47,7 +47,7 @@ static void update(sense_webassembly_input_manager* self, sense_input* input)
 	sense_webassembly_touches_clear(&self->touches);
 }
 
-void sense_webassembly_input_manager_init(sense_webassembly_input_manager* self, nimbus_size2i screen_size)
+void sense_webassembly_input_manager_init(sense_webassembly_input_manager* self, bl_size2i screen_size)
 {
 	const char* node = "#canvas";
 

@@ -30,7 +30,7 @@ void sense_input_manager_update(sense_input_driver* self, struct sense_input* in
 	self->update_fn(self->self, input);
 }
 
-void sense_input_manager_touch(sense_input_driver* self, size_t id, sense_touch_phase phase, nimbus_vector2i position)
+void sense_input_manager_touch(sense_input_driver* self, size_t id, sense_touch_phase phase, bl_vector2i position)
 {
 	self->touch_fn(self->self, id, phase, position);
 }
