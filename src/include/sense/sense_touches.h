@@ -27,7 +27,7 @@ SOFTWARE.
 #define sense_touches_h
 
 #include <basal/basal_vector2.h>
-#include <tyran/mutex/tyran_mutex.h>
+#include <latch/mutex.h>
 
 typedef enum sense_touch_phase {
 	sense_touch_phase_began,
@@ -43,7 +43,7 @@ typedef struct sense_touch {
 } sense_touch;
 
 typedef struct sense_touches {
-	tyran_mutex mutex;
+	latch_mutex mutex;
 	sense_touch touches[64];
 	size_t touch_count;
 	size_t max_touch_count;

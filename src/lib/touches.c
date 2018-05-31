@@ -31,7 +31,7 @@ void sense_touches_init(sense_touches* self)
 	self->max_touch_count = 64;
 	self->touch_count = 0;
 
-	tyran_mutex_init(&self->mutex);
+	latch_mutex_init(&self->mutex);
 }
 
 static const char* phase_to_string(sense_touch_phase phase)
@@ -64,19 +64,19 @@ void sense_touches_add(sense_touches* self, size_t identifier, sense_touch_phase
 		CLOG_OUTPUT("Out of touch space! %zu of %zu", self->touch_count, self->max_touch_count);
 		return;
 	}
-	tyran_mutex_lock(&self->mutex);
+	latch_mutex_lock(&self->mutex);
 
 	sense_touch* touch = &self->touches[self->touch_count++];
 	touch->identifier = identifier;
 	touch->position = position;
 	touch->phase = phase;
-	tyran_mutex_unlock(&self->mutex);
+	latch_mutex_unlock(&self->mutex);
 }
 
 void sense_touches_reset(sense_touches* self)
 {
-	tyran_mutex_lock(&self->mutex);
+	latch_mutex_lock(&self->mutex);
 	self->touch_count = 0;
 
-	tyran_mutex_unlock(&self->mutex);
+	latch_mutex_unlock(&self->mutex);
 }
