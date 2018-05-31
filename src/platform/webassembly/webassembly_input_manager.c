@@ -28,7 +28,7 @@ SOFTWARE.
 #include <sense/sense_input_manager.h>
 
 #include <clog/clog.h>
-#include <tiny_libc/tiny_libc.h>
+#include <tiny-libc/tiny_libc.h>
 
 static tyran_boolean key_is_pressed(const sense_keyboard_keys* keys)
 {

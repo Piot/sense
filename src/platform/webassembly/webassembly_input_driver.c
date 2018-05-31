@@ -27,7 +27,7 @@ SOFTWARE.
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
 
-#include <tiny_libc/tiny_libc.h>
+#include <tiny-libc/tiny_libc.h>
 
 static void update(void* _self, sense_input* target)
 {

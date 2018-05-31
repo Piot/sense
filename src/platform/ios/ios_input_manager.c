@@ -28,7 +28,7 @@ SOFTWARE.
 #include <sense/sense_input_manager.h>
 
 #include <clog/clog.h>
-#include <tiny_libc/tiny_libc.h>
+#include <tiny-libc/tiny_libc.h>
 
 void sense_ios_input_gamepad_manager_update(sense_input* input);
 

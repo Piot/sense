@@ -29,7 +29,7 @@ SOFTWARE.
 #include <clog/clog.h>
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
-#include <tiny_libc/tiny_libc.h>
+#include <tiny-libc/tiny_libc.h>
 #include <tyran/tyran_types.h>
 
 static int invert_y(const sense_webassembly_touches* self, int y)
