@@ -23,6 +23,7 @@
   "dependencies" : {
       "piot/clog" : "*",
       "piot/tiny-libc" : "*",
+      "piot/latch" : "*",
       "piot/tyran" : "*"
   }
 }
