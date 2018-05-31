@@ -24,6 +24,7 @@
       "piot/clog" : "*",
       "piot/tiny-libc" : "*",
       "piot/latch" : "*",
+      "piot/basal-c" : "*",
       "piot/tyran" : "*"
   }
 }
