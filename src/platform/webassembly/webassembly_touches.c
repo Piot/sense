@@ -43,7 +43,7 @@ static EM_BOOL on_touch(sense_webassembly_touches* self, const EmscriptenTouchEv
 
 	for (int i = 0; i < touchEvent->numTouches; ++i) {
 		const EmscriptenTouchPoint* point = &touchEvent->touches[i];
-		CLOG_OUTPUT("On Touch %ux%u", point->clientX, point->clientY);
+		CLOG_OUTPUT("On Touch %ld x %ld", point->clientX, point->clientY);
 		bl_vector2i pos;
 		pos.x = point->clientX;
 		pos.y = point->clientY;
