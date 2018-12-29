@@ -70,37 +70,51 @@ static EM_BOOL on_mouse(sense_webassembly_touches* self, const EmscriptenMouseEv
 
 static EM_BOOL on_touch_start(int eventType, const EmscriptenTouchEvent* touchEvent, void* userData)
 {
+    (void) eventType;
+    
 	return on_touch((sense_webassembly_touches*) userData, touchEvent);
 }
 
 static EM_BOOL on_touch_move(int eventType, const EmscriptenTouchEvent* touchEvent, void* userData)
 {
-	return on_touch((sense_webassembly_touches*) userData, touchEvent);
+    (void) eventType;
+
+    return on_touch((sense_webassembly_touches*) userData, touchEvent);
 }
 
 static EM_BOOL on_touch_end(int eventType, const EmscriptenTouchEvent* touchEvent, void* userData)
 {
-	return on_touch((sense_webassembly_touches*) userData, touchEvent);
+    (void) eventType;
+
+    return on_touch((sense_webassembly_touches*) userData, touchEvent);
 }
 
 static EM_BOOL on_touch_cancel(int eventType, const EmscriptenTouchEvent* touchEvent, void* userData)
 {
-	return on_touch((sense_webassembly_touches*) userData, touchEvent);
+    (void) eventType;
+
+    return on_touch((sense_webassembly_touches*) userData, touchEvent);
 }
 
 static EM_BOOL on_mouse_down(int eventType, const EmscriptenMouseEvent* mouseEvent, void* userData)
 {
-	return on_mouse((sense_webassembly_touches*) userData, mouseEvent);
+    (void) eventType;
+
+    return on_mouse((sense_webassembly_touches*) userData, mouseEvent);
 }
 
 static EM_BOOL on_mouse_up(int eventType, const EmscriptenMouseEvent* mouseEvent, void* userData)
 {
-	return on_mouse((sense_webassembly_touches*) userData, mouseEvent);
+    (void) eventType;
+
+    return on_mouse((sense_webassembly_touches*) userData, mouseEvent);
 }
 
 static EM_BOOL on_mouse_move(int eventType, const EmscriptenMouseEvent* mouseEvent, void* userData)
 {
-	if (!mouseEvent->buttons) {
+    (void) eventType;
+
+    if (!mouseEvent->buttons) {
 		return EM_FALSE;
 	}
 	return on_mouse((sense_webassembly_touches*) userData, mouseEvent);

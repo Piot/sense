@@ -104,11 +104,15 @@ static EM_BOOL on_key(sense_webassembly_keys* self, const EmscriptenKeyboardEven
 
 static EM_BOOL on_key_down(int eventType, const EmscriptenKeyboardEvent* keyEvent, void* user_data)
 {
+    (void) eventType;
+    
 	return on_key((sense_webassembly_keys*) user_data, keyEvent, TYRAN_TRUE);
 }
 
 static EM_BOOL on_key_up(int eventType, const EmscriptenKeyboardEvent* keyEvent, void* user_data)
 {
+    (void) eventType;
+    
 	return on_key((sense_webassembly_keys*) user_data, keyEvent, TYRAN_FALSE);
 }
 
