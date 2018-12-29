@@ -30,7 +30,7 @@ SOFTWARE.
 #include <tyran/tyran_types.h>
 
 typedef struct sense_webassembly_keys {
-	sense_keyboard_keys keys;
+	sense_keyboard_keys keys[8];
 	tyran_boolean device_in_focus;
 } sense_webassembly_keys;
 
