@@ -60,6 +60,9 @@ static void handle_key(sense_keyboard_keys *k, int key_down, tyran_boolean state
 	case 5:
 		ref = &k->b;
 		break;
+	case 8:
+		ref = &k->menu;
+		break;
 	default:
 		return;
 	}
@@ -82,26 +85,6 @@ static size_t handle_known_keys(int keyname)
 	return 0;
 }
 
-static int* get_target_key(sense_keyboard_keys* keys, SDL_Keycode code)
-{
-	switch (code) {
-		case SDLK_DOWN:
-			return &keys->down;
-		case SDLK_UP:
-			return &keys->up;
-		case SDLK_LEFT:
-			return &keys->left;
-		case SDLK_RIGHT:
-			return &keys->right;
-		case SDLK_z:
-			return &keys->a;
-		case SDLK_x:
-		    return &keys->b;
-	}
-
-	return 0;
-}
-
 static tyran_boolean on_key(sense_sdl_keys *self, const SDL_KeyboardEvent *keyEvent, tyran_boolean state)
 {
 	if (keyEvent->repeat)
@@ -115,7 +98,7 @@ static tyran_boolean on_key(sense_sdl_keys *self, const SDL_KeyboardEvent *keyEv
 		detected_key--;
 		size_t player_index = detected_key / 9;
 		size_t local_key = detected_key % 9;
-        CLOG_OUTPUT("onkey player %zu key %zu", player_index, local_key);
+        CLOG_OUTPUT("onkey player %zu key %zu on %d", player_index, local_key, state);
 		self->device_in_focus = TYRAN_TRUE;
 		handle_key(&self->keys[player_index], local_key, state);
 		return TYRAN_TRUE;
@@ -137,18 +120,14 @@ int sense_sdl_keys_poll(sense_sdl_keys *self)
 {	SDL_Event event;
 	int quit = 0;
 
-	if (SDL_PollEvent(&event)) {
+	while (SDL_PollEvent(&event)) {
 
 		switch (event.type) {
 			case SDL_QUIT:
 				quit = 1;
 				break;
 			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE) {
-					quit = 1;
-				} else {
-					handle_key_down(self, &event.key);
-				}
+				handle_key_down(self, &event.key);
 				break;
 			case SDL_KEYUP:
 				handle_key_up(self, &event.key);
