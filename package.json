@@ -26,5 +26,8 @@
       "piot/latch" : "*",
       "piot/basal-c" : "*",
       "piot/tyran" : "*"
+  },
+  "development" : {
+    "piot/breathe" : "*"
   }
 }
