@@ -1,1 +1,1 @@
-clang ../src/lib/*.c ../src/platform/sdl/*.c ../deps/tiny-libc/*.c ../deps/breathe/sdl_main.c ../deps/basal/*.c ../src/examples/main.c  -I ../src/include/ -I ../deps/ -lm -lSDL2 -D CONFIGURATION_DEBUG
+clang ../src/lib/*.c ../src/platform/sdl/*.c ../deps/tiny-libc/src/lib/*.c ../deps/breathe/src/platform/sdl/sdl_main.c ../deps/basal-c/src/lib/*.c ../src/examples/main.c  -I ../src/include/ -I ../deps/include -lm -lSDL2 -D CONFIGURATION_DEBUG
