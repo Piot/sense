@@ -27,7 +27,7 @@ SOFTWARE.
 #include <emscripten/html5.h>
 
 #include <clog/clog.h>
-#include <sense/sense_input.h>
+#include <sense/SenseInput.h>
 #include <sense/sense_input_manager.h>
 #include <tiny-libc/tiny_libc.h>
 #include <tyran/tyran_types.h>

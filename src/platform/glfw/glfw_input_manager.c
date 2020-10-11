@@ -30,48 +30,53 @@ SOFTWARE.
 
 #include <clog/clog.h>
 
-static tyran_boolean key_is_pressed(const sense_keyboard_keys *keys)
+static tyran_boolean key_is_pressed(const SenseButtons*keys)
 {
 	return (keys->up != 0 || keys->down != 0 || keys->left != 0 || keys->right != 0 || keys->a != 0 || keys->b != 0 || keys->x != 0 || keys->y != 0);
 }
 
-static void checkForNewGamepads(sense_glfw_input_manager* self)
+static void checkForNewGamepads(SenseGlfwInputManager* self)
 {
 	for (int joystickId = GLFW_JOYSTICK_1; joystickId <= GLFW_JOYSTICK_LAST; ++joystickId)
 	{
-		if (glfwJoystickPresent(joystickId)) {
-//			CLOG_INFO("found joystick: %d", joystickId);
-			if (glfwJoystickIsGamepad(joystickId)) {
-				GamepadState* knownState = &self->gamepadStates[joystickId];
-				if (knownState->isBound) {
-					continue;
-				}
-
-				GLFWgamepadstate currentState;
-
-				int worked = glfwGetGamepadState(joystickId, &currentState);
-				if (worked != GLFW_TRUE) {
-					continue;
-				}
-
-				if (currentState.buttons[GLFW_GAMEPAD_BUTTON_GUIDE] == GLFW_PRESS || currentState.buttons[GLFW_GAMEPAD_BUTTON_START] == GLFW_PRESS) {
-					knownState->isBound = TYRAN_TRUE;
-					const char* name = glfwGetGamepadName(joystickId);
-					CLOG_INFO("detected and bound gamepad %d %s", joystickId, name)
-					if (self->boundGamepadsCount >= self->boundGamepadsMax) {
-						CLOG_ERROR("too many gamepads")
-						return;
-					}
-					BoundGamepad* boundGamepad = &self->boundGamepads[self->boundGamepadsCount++];
-					boundGamepad->joystickId = joystickId;
-					boundGamepad->isUsed = TYRAN_TRUE;
-				}
-			}
+		if (!glfwJoystickPresent(joystickId)) {
+			continue;
 		}
+
+		if (!glfwJoystickIsGamepad(joystickId)) {
+			continue;
+		}
+
+		GamepadState* knownState = &self->gamepadStates[joystickId];
+		if (knownState->isBound) {
+			continue;
+		}
+
+		GLFWgamepadstate currentState;
+
+		int worked = glfwGetGamepadState(joystickId, &currentState);
+		if (worked != GLFW_TRUE) {
+			continue;
+		}
+
+		if (currentState.buttons[GLFW_GAMEPAD_BUTTON_GUIDE] != GLFW_PRESS && currentState.buttons[GLFW_GAMEPAD_BUTTON_START] != GLFW_PRESS) {
+			continue;
+		}
+
+		knownState->isBound = TYRAN_TRUE;
+		const char* name = glfwGetGamepadName(joystickId);
+		CLOG_INFO("detected and bound gamepad %d %s", joystickId, name)
+		if (self->boundGamepadsCount >= self->boundGamepadsMax) {
+			CLOG_ERROR("too many gamepads")
+			return;
+		}
+		BoundGamepad* boundGamepad = &self->boundGamepads[self->boundGamepadsCount++];
+		boundGamepad->joystickId = joystickId;
+		boundGamepad->isUsed = TYRAN_TRUE;
 	}
 }
 
-static void scanGamepads(sense_glfw_input_manager* self, sense_keyboard_keys gamepadStates[8])
+static void scanGamepads(SenseGlfwInputManager* self, SenseButtons gamepadStates[8])
 {
 	for (int i=0; i<self->boundGamepadsCount; ++i)
 	{
@@ -88,8 +93,7 @@ static void scanGamepads(sense_glfw_input_manager* self, sense_keyboard_keys gam
 			continue;
 		}
 
-
-		sense_keyboard_keys* target = &gamepadStates[i];
+		SenseButtons* target = &gamepadStates[i];
 		unsigned char* source = currentState.buttons;
 
 		target->a = source[GLFW_GAMEPAD_BUTTON_A] == GLFW_TRUE;
@@ -106,13 +110,14 @@ static void scanGamepads(sense_glfw_input_manager* self, sense_keyboard_keys gam
 	}
 }
 
-void sense_glfw_input_manager_init(sense_glfw_input_manager *self, bl_size2i screen_size)
+void senseGlfwInputManagerInit(SenseGlfwInputManager*self, bl_size2i screen_size)
 {
 	tc_mem_clear_type(self);
+
 	self->boundGamepadsMax = 16;
 }
 
-void sense_glfw_input_manager_update(sense_glfw_input_manager *self, sense_input *input)
+void senseGlfwInputManagerUpdate(SenseGlfwInputManager*self, SenseInput*input)
 {
 	tc_mem_clear_type(input);
 

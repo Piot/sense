@@ -23,23 +23,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-#include "glfw_input_manager.h"
-#include <sense/sense_input.h>
-#include <sense/sense_input_manager.h>
+#ifndef sense_keyboard_keys_h
+#define sense_keyboard_keys_h
 
-#include <tiny-libc/tiny_libc.h>
+typedef struct SenseButtons {
+	int down;
+	int up;
+	int left;
+	int right;
+	int a;
+	int b;
+	int x;
+	int y;
+	int menu;
+} SenseButtons;
 
-static void update(void* _self, SenseInput* target)
-{
-	SenseGlfwInputManager* self = (SenseGlfwInputManager*) _self;
-	senseGlfwInputManagerUpdate(self, target);
-}
-
-void senseInputManagerCreatePlatformDriver(SenseInputManager* target, bl_size2i screen_size)
-{
-	SenseGlfwInputManager* self = tc_malloc_type(SenseGlfwInputManager);
-	senseGlfwInputManagerInit(self, screen_size);
-
-	target->self = self;
-	target->update_fn = update;
-}
+#endif

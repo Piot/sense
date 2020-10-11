@@ -24,7 +24,7 @@ SOFTWARE.
 
 */
 #include "sdl_input_manager.h"
-#include <sense/sense_input.h>
+#include <sense/SenseInput.h>
 #include <sense/sense_input_manager.h>
 
 #include <tiny-libc/tiny_libc.h>
@@ -35,10 +35,10 @@ static void update(void* _self, sense_input* target)
 	sense_sdl_input_manager_update(self, target);
 }
 
-void sense_input_manager_create_platform_driver(sense_input_driver* driver, bl_size2i screen_size)
+void senseInputManagerCreatePlatformDriver(SenseInputManager* self, bl_size2i screen_size)
 {
 	sense_sdl_input_manager* self = tc_malloc_type(sense_sdl_input_manager);
 	sense_sdl_input_manager_init(self, screen_size);
-	driver->self = self;
-	driver->update_fn = update;
+	self->self = self;
+	self->update_fn = update;
 }

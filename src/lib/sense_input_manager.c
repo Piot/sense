@@ -25,12 +25,12 @@ SOFTWARE.
 */
 #include <sense/sense_input_manager.h>
 
-void sense_input_manager_update(sense_input_driver* self, struct sense_input* input)
+void senseInputManagerUpdate(SenseInputManager* self, struct SenseInput* input)
 {
 	self->update_fn(self->self, input);
 }
 
-void sense_input_manager_touch(sense_input_driver* self, size_t id, sense_touch_phase phase, bl_vector2i position)
+void senseInputManagerTouch(SenseInputManager* self, size_t id, sense_touch_phase phase, bl_vector2i position)
 {
 	self->touch_fn(self->self, id, phase, position);
 }

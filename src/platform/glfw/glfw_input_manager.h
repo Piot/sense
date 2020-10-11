@@ -29,7 +29,7 @@ SOFTWARE.
 #include <basal/basal_size2i.h>
 #include <tyran/tyran_types.h>
 
-struct sense_input;
+struct SenseInput;
 
 typedef struct GamepadState {
 	tyran_boolean isBound;
@@ -40,15 +40,14 @@ typedef struct BoundGamepad {
 	tyran_boolean isUsed;
 } BoundGamepad;
 
-typedef struct sense_glfw_input_manager {
-	bl_size2i screen_size;
+typedef struct SenseGlfwInputManager {
 	GamepadState gamepadStates[16];
 	BoundGamepad boundGamepads[16];
 	int boundGamepadsMax;
 	int boundGamepadsCount;
-} sense_glfw_input_manager;
+} SenseGlfwInputManager;
 
-void sense_glfw_input_manager_init(sense_glfw_input_manager* self, bl_size2i screen_size);
-void sense_glfw_input_manager_update(sense_glfw_input_manager* self, struct sense_input* input);
+void senseGlfwInputManagerInit(SenseGlfwInputManager* self, bl_size2i screen_size);
+void senseGlfwInputManagerUpdate(SenseGlfwInputManager* self, struct SenseInput* input);
 
 #endif

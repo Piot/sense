@@ -40,11 +40,11 @@ static void touch(void* _self, size_t id, sense_touch_phase phase, bl_vector2i p
 	sense_ios_input_manager_touch(self, id, phase, position);
 }
 
-void sense_input_manager_create_platform_driver(sense_input_driver* driver, bl_size2i screen_size)
+void senseInputManagerCreatePlatformDriver(SenseInputManager* self, bl_size2i screen_size)
 {
 	sense_ios_input_manager* self = tc_malloc_type(sense_ios_input_manager);
 	sense_ios_input_manager_init(self, screen_size);
-	driver->self = self;
-	driver->update_fn = update;
-	driver->touch_fn = touch;
+	self->self = self;
+	self->update_fn = update;
+	self->touch_fn = touch;
 }

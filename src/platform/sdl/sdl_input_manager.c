@@ -24,7 +24,7 @@ SOFTWARE.
 
 */
 #include "sdl_input_manager.h"
-#include <sense/sense_input.h>
+#include <sense/SenseInput.h>
 #include <sense/sense_input_manager.h>
 
 #include <clog/clog.h>

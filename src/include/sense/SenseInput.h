@@ -23,19 +23,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
-#ifndef sense_keyboard_keys_h
-#define sense_keyboard_keys_h
+#ifndef sense_input_h
+#define sense_input_h
 
-typedef struct sense_keyboard_keys {
-	int down;
-	int up;
-	int left;
-	int right;
-	int a;
-	int b;
-	int x;
-	int y;
-	int menu;
-} sense_keyboard_keys;
+#include <sense/sense_keyboard_keys.h>
+#include <sense/sense_touches.h>
+
+typedef struct sense_input {
+	sense_keyboard_keys keys[8];
+	sense_touches touches;
+} sense_input;
 
 #endif

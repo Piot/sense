@@ -26,12 +26,12 @@ SOFTWARE.
 #ifndef sense_input_h
 #define sense_input_h
 
-#include <sense/sense_keyboard_keys.h>
+#include <sense/sense_buttons.h>
 #include <sense/sense_touches.h>
 
-typedef struct sense_input {
-	sense_keyboard_keys keys[8];
+typedef struct SenseInput {
+	SenseButtons keys[8];
 	sense_touches touches;
-} sense_input;
+} SenseInput;
 
 #endif
