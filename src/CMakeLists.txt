@@ -45,7 +45,7 @@ add_executable(sense_swamp_example
         ${deps_src}
         ${lib_src}
         examples/main.c
-        platform/glfw/glfw_input_driver.c platform/glfw/glfw_input_manager.h platform/glfw/glfw_input_manager.c)
+        platform/glfw/glfw_input_driver.c platform/glfw/glfw_input_manager.h platform/glfw/glfw_input_manager.c platform/glfw/glfw_keyboard.c platform/glfw/glfw_keyboard.h)
 
 #find_package (Vulkan)
 #if (Vulkan_FOUND)

@@ -28,6 +28,7 @@ SOFTWARE.
 
 #include <basal/basal_size2i.h>
 #include <tyran/tyran_types.h>
+#include "glfw_keyboard.h"
 
 struct SenseInput;
 
@@ -45,9 +46,11 @@ typedef struct SenseGlfwInputManager {
 	BoundGamepad boundGamepads[16];
 	int boundGamepadsMax;
 	int boundGamepadsCount;
+
+	GlfwKeyboard keyboards;
 } SenseGlfwInputManager;
 
-void senseGlfwInputManagerInit(SenseGlfwInputManager* self, bl_size2i screen_size);
+void senseGlfwInputManagerInit(SenseGlfwInputManager* self, GLFWwindow* window, bl_size2i screen_size);
 void senseGlfwInputManagerUpdate(SenseGlfwInputManager* self, struct SenseInput* input);
 
 #endif

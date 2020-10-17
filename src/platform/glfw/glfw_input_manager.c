@@ -28,6 +28,7 @@ SOFTWARE.
 
 #include <GLFW/glfw3.h>
 
+
 #include <clog/clog.h>
 
 static tyran_boolean key_is_pressed(const SenseButtons*keys)
@@ -96,23 +97,44 @@ static void scanGamepads(SenseGlfwInputManager* self, SenseButtons gamepadStates
 		SenseButtons* target = &gamepadStates[i];
 		unsigned char* source = currentState.buttons;
 
+		const float* sourceAxes = currentState.axes;
+
+
+
 		target->a = source[GLFW_GAMEPAD_BUTTON_A] == GLFW_TRUE;
 		target->b = source[GLFW_GAMEPAD_BUTTON_B] == GLFW_TRUE;
 		target->x = source[GLFW_GAMEPAD_BUTTON_X] == GLFW_TRUE;
 		target->y = source[GLFW_GAMEPAD_BUTTON_Y] == GLFW_TRUE;
 
+
+
 		target->menu = source[GLFW_GAMEPAD_BUTTON_START] == GLFW_TRUE;
 
 		target->up = source[GLFW_GAMEPAD_BUTTON_DPAD_UP] == GLFW_TRUE;
+		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.01f) {
+			target->up = 1;
+		}
+
 		target->down = source[GLFW_GAMEPAD_BUTTON_DPAD_DOWN] == GLFW_TRUE;
+		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.01f) {
+			target->down = 1;
+		}
+
 		target->left = source[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] == GLFW_TRUE;
+		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.01f) {
+			target->left = 1;
+		}
 		target->right = source[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT] == GLFW_TRUE;
+		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.01f) {
+			target->right = 1;
+		}
 	}
 }
 
-void senseGlfwInputManagerInit(SenseGlfwInputManager*self, bl_size2i screen_size)
+void senseGlfwInputManagerInit(SenseGlfwInputManager*self, GLFWwindow* window, bl_size2i screen_size)
 {
 	tc_mem_clear_type(self);
+	glfwKeyboardInit(&self->keyboards, window);
 
 	self->boundGamepadsMax = 16;
 }
@@ -122,5 +144,6 @@ void senseGlfwInputManagerUpdate(SenseGlfwInputManager*self, SenseInput*input)
 	tc_mem_clear_type(input);
 
 	checkForNewGamepads(self);
-	scanGamepads(self, input->keys);
+	scanGamepads(self, &input->devices[1]);
+	glfwKeyboardUpdate(&self->keyboards, input->devices, 1);
 }

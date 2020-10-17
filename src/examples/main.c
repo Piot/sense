@@ -24,6 +24,8 @@ void* g_breathe_init(int argc, const char* argv[], int width, int height)
     return &__app;
 }
 
+#define PRINT_BUTTON(name) printf("%d %s  ", input.keys[0].name, #name)
+
 int g_breathe_draw(void* _app)
 {
     example_app* app = _app;
@@ -31,9 +33,19 @@ int g_breathe_draw(void* _app)
 	SenseInput input;
 	senseInputManagerUpdate(&app->driver, &input);
 
-	CLOG_INFO("input a: %d", input.keys[0].a);
+	PRINT_BUTTON(a);
+	PRINT_BUTTON(b);
+	PRINT_BUTTON(x);
+	PRINT_BUTTON(y);
+	PRINT_BUTTON(menu);
+	PRINT_BUTTON(up);
+	PRINT_BUTTON(down);
+	PRINT_BUTTON(left);
+	PRINT_BUTTON(right);
+	printf("\n");
+	//CLOG_INFO("input a: %d", input.keys[0].a);
 
-    int menu_pressed = input.keys[0].a;
+    int menu_pressed = input.keys[0].menu;
 	int shouldQuit = menu_pressed;
 
     return shouldQuit;

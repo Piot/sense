@@ -30,7 +30,7 @@ SOFTWARE.
 #include <sense/sense_touches.h>
 
 typedef struct SenseInput {
-	SenseButtons keys[8];
+	SenseButtons devices[8];
 	sense_touches touches;
 } SenseInput;
 

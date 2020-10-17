@@ -29,6 +29,8 @@ SOFTWARE.
 
 #include <tiny-libc/tiny_libc.h>
 
+#include <breathe/breathe_app.h> // to get GLFWWindow
+
 static void update(void* _self, SenseInput* target)
 {
 	SenseGlfwInputManager* self = (SenseGlfwInputManager*) _self;
@@ -38,7 +40,7 @@ static void update(void* _self, SenseInput* target)
 void senseInputManagerCreatePlatformDriver(SenseInputManager* target, bl_size2i screen_size)
 {
 	SenseGlfwInputManager* self = tc_malloc_type(SenseGlfwInputManager);
-	senseGlfwInputManagerInit(self, screen_size);
+	senseGlfwInputManagerInit(self, g_main->window,  screen_size);
 
 	target->self = self;
 	target->update_fn = update;
