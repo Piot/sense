@@ -35,6 +35,6 @@ typedef struct sense_sdl_keys {
 } sense_sdl_keys;
 
 void sense_sdl_keys_init(sense_sdl_keys* self);
-int sense_sdl_keys_poll(sense_sdl_keys *self);
+int sense_sdl_keys_poll(sense_sdl_keys* self);
 
 #endif

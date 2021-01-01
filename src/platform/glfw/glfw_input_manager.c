@@ -108,6 +108,7 @@ static void scanGamepads(SenseGlfwInputManager* self, SenseButtons gamepadStates
 
 
 
+
 		target->menu = source[GLFW_GAMEPAD_BUTTON_START] == GLFW_TRUE;
 
 		target->up = source[GLFW_GAMEPAD_BUTTON_DPAD_UP] == GLFW_TRUE;

@@ -26,9 +26,9 @@ SOFTWARE.
 #ifndef sense_glfw_input_manager_h
 #define sense_glfw_input_manager_h
 
+#include "glfw_keyboard.h"
 #include <basal/basal_size2i.h>
 #include <tyran/tyran_types.h>
-#include "glfw_keyboard.h"
 
 struct SenseInput;
 

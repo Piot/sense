@@ -2,10 +2,12 @@
 
 #include <clog/clog.h>
 
+/*
 static void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 
 }
+*/
 
 void glfwKeyboardInit(GlfwKeyboard* self, GLFWwindow* window)
 {
