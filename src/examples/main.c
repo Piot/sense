@@ -1,4 +1,7 @@
-
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
 

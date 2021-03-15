@@ -1,28 +1,7 @@
-/*
-
-MIT License
-
-Copyright (c) 2012 Peter Bjorklund
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-*/
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 #include "glfw_input_manager.h"
 #include <sense/sense_input.h>
 
@@ -31,7 +10,7 @@ SOFTWARE.
 
 #include <clog/clog.h>
 
-static tyran_boolean key_is_pressed(const SenseButtons*keys)
+static tyran_boolean key_is_pressed(const SenseNamedButtons *keys)
 {
 	return (keys->up != 0 || keys->down != 0 || keys->left != 0 || keys->right != 0 || keys->a != 0 || keys->b != 0 || keys->x != 0 || keys->y != 0);
 }
@@ -94,7 +73,7 @@ static void scanGamepads(SenseGlfwInputManager* self, SenseButtons gamepadStates
 			continue;
 		}
 
-		SenseButtons* target = &gamepadStates[i];
+		struct SenseNamedButtons* target = &gamepadStates[i].named;
 		unsigned char* source = currentState.buttons;
 
 		const float* sourceAxes = currentState.axes;
@@ -145,6 +124,6 @@ void senseGlfwInputManagerUpdate(SenseGlfwInputManager*self, SenseInput*input)
 	tc_mem_clear_type(input);
 
 	checkForNewGamepads(self);
-	scanGamepads(self, &input->devices[1]);
+	scanGamepads(self, &input->devices[2]);
 	glfwKeyboardUpdate(&self->keyboards, input->devices, 1);
 }

@@ -1,3 +1,7 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Peter Bjorklund. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 #ifndef SENSE_GLFW_KEYBOARD_H
 #define SENSE_GLFW_KEYBOARD_H
 
@@ -6,7 +10,11 @@
 
 typedef struct GlfwKeyboard {
 	SenseButtons keyboard[4];
+    int boundToSourceIndex[4];
+    int isIndexBound[4];
+    int boundedCount;
 	GLFWwindow* window;
+    GLFWkeyfun previousCallback;
 } GlfwKeyboard;
 
 void glfwKeyboardInit(GlfwKeyboard* self, GLFWwindow* window);
