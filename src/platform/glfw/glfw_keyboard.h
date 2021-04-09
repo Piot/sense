@@ -12,7 +12,7 @@ typedef struct GlfwKeyboard {
 	SenseButtons keyboard[4];
     int boundToSourceIndex[4];
     int isIndexBound[4];
-    int boundedCount;
+    size_t boundedCount;
 	GLFWwindow* window;
     GLFWkeyfun previousCallback;
 } GlfwKeyboard;
