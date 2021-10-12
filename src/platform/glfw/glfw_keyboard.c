@@ -73,6 +73,10 @@ int convertKeyToGamepadAndButtonIndex(int key, int* gamepadIndex, SenseButtonNam
 
 
 static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bitFieldMods) {
+    GlfwKeyboard* self = g_glfwKeyboard;
+
+    self->previousCallback(window, key, scanCode, action, bitFieldMods);
+
     if (action != GLFW_PRESS && action != GLFW_RELEASE) {
         return;
     }
@@ -85,7 +89,7 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
         return;
     }
 
-    GlfwKeyboard* self = g_glfwKeyboard;
+
     if (wasPressed && !self->isIndexBound[gamepadIndex]) {
         if (self->boundedCount == 4) {
             CLOG_ERROR("out of bounded keyboards")
