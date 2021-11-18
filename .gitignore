@@ -2,4 +2,4 @@ deps/
 .vscode/
 old/
 deps.clean*/
-
+.vs/
