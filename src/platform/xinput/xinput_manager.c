@@ -7,6 +7,8 @@
 #include <clog/clog.h>
 #include "xinput_manager.h"
 
+#define MAX_VALUE (1000)
+
 static void scanGamepads(SenseXInputManager* self, SenseButtons gamepadStates[8])
 {
     XINPUT_STATE state;
@@ -16,30 +18,24 @@ static void scanGamepads(SenseXInputManager* self, SenseButtons gamepadStates[8]
         if (status == ERROR_SUCCESS) {
             SenseNamedButtons* button = &gamepadStates[i].named;
             DWORD btn = state.Gamepad.wButtons;
-            button->up = btn & XINPUT_GAMEPAD_DPAD_UP;
-            button->down = btn & XINPUT_GAMEPAD_DPAD_DOWN;
-            button->left = btn & XINPUT_GAMEPAD_DPAD_LEFT;
-            button->right = btn & XINPUT_GAMEPAD_DPAD_RIGHT;
+            button->vertical = btn & XINPUT_GAMEPAD_DPAD_UP ? MAX_VALUE : ( btn & XINPUT_GAMEPAD_DPAD_DOWN ? -MAX_VALUE : 0);
+            button->horizontal = btn & XINPUT_GAMEPAD_DPAD_RIGHT ? MAX_VALUE : ( btn & XINPUT_GAMEPAD_DPAD_LEFT ? -MAX_VALUE : 0);
             button->a = btn & XINPUT_GAMEPAD_A;
             button->b = btn & XINPUT_GAMEPAD_B;
             button->x = btn & XINPUT_GAMEPAD_X;
             button->y = btn & XINPUT_GAMEPAD_Y;
             button->menu = btn & XINPUT_GAMEPAD_START;
 
-            if (!button->up) {
-                button->up = state.Gamepad.sThumbLY > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+            if (button->vertical == 0) {
+                if (state.Gamepad.sThumbLY > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE || state.Gamepad.sThumbLY < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
+                    button->vertical = state.Gamepad.sThumbLY * MAX_VALUE / 32768;
+                }
             }
 
-            if (!button->down) {
-                button->down = state.Gamepad.sThumbLY < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
-            }
-
-            if (!button->left) {
-                button->left = state.Gamepad.sThumbLX < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
-            }
-
-            if (!button->right) {
-                button->right = state.Gamepad.sThumbLX > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE;
+            if (button->horizontal == 0) {
+                if (state.Gamepad.sThumbLX > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE || state.Gamepad.sThumbLX < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
+                    button->horizontal = state.Gamepad.sThumbLX * MAX_VALUE / 32768;
+                }
             }
         }
     }

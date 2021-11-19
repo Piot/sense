@@ -8,61 +8,61 @@
 
 static GlfwKeyboard* g_glfwKeyboard;
 
-int convertKeyToGamepadAndButtonIndex(int key, int* gamepadIndex, SenseButtonNames *buttonIndex) {
+int convertKeyToGamepadAndButtonIndex(int key, int* gamepadIndex, SenseNamedButtons* target) {
     switch (key) {
         case GLFW_KEY_W:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_UP;
+            target->vertical = 1000;
             break;
         case GLFW_KEY_S:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_DOWN;
+            target->vertical = -1000;
             break;
         case GLFW_KEY_A:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_LEFT;
+            target->horizontal = -1000;
             break;
         case GLFW_KEY_D:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_RIGHT;
+            target->horizontal = 1000;
             break;
         case GLFW_KEY_SPACE:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_A;
+            target->a = 1000;
             break;
         case GLFW_KEY_LEFT_SHIFT:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_B;
+            target->b = 1000;
             break;
         case GLFW_KEY_Q:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_X;
+            target->x = 1000;
             break;
         case GLFW_KEY_E:
             *gamepadIndex = 0;
-            *buttonIndex = SENSE_KEY_Y;
+            target->y = 1000;
             break;
 
         case GLFW_KEY_I:
             *gamepadIndex = 1;
-            *buttonIndex = SENSE_KEY_UP;
+            target->vertical = 1000;
             break;
         case GLFW_KEY_K:
             *gamepadIndex = 1;
-            *buttonIndex = SENSE_KEY_DOWN;
+            target->vertical = -1000;
             break;
         case GLFW_KEY_J:
             *gamepadIndex = 1;
-            *buttonIndex = SENSE_KEY_LEFT;
+            target->horizontal = -1000;
             break;
         case GLFW_KEY_L:
             *gamepadIndex = 1;
-            *buttonIndex = SENSE_KEY_RIGHT;
+            target->horizontal = 1000;
             break;
 
         case GLFW_KEY_M:
             *gamepadIndex = 1;
-            *buttonIndex = SENSE_KEY_A;
+            target->a = SENSE_KEY_A;
             break;
         default:
             return -1;
@@ -83,12 +83,15 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
 
     int wasPressed = action == GLFW_PRESS;
     int gamepadIndex;
-    enum SenseButtonNames buttonIndex;
-    int success = convertKeyToGamepadAndButtonIndex(key, &gamepadIndex, &buttonIndex);
-    if (success < 0) {
-        return;
-    }
+    SenseNamedButtons buttons;
+    tc_mem_clear_type(&buttons);
 
+    if (wasPressed) {
+        int success = convertKeyToGamepadAndButtonIndex(key, &gamepadIndex, &buttons);
+        if (success < 0) {
+            return;
+        }
+    }
 
     if (wasPressed && !self->isIndexBound[gamepadIndex]) {
         if (self->boundedCount == 4) {
@@ -100,8 +103,8 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
         self->isIndexBound[gamepadIndex] = 1;
     }
 
-    SenseButtons* buttons = &g_glfwKeyboard->keyboard[gamepadIndex];
-    buttons->values[buttonIndex] = wasPressed;
+    SenseNamedButtons* targetButtons = &g_glfwKeyboard->keyboard[gamepadIndex];
+    *targetButtons = buttons;
 
     self->previousCallback(window, key, scanCode, action, bitFieldMods);
 }

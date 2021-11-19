@@ -6,10 +6,8 @@
 #define sense_keyboard_keys_h
 
 typedef struct SenseNamedButtons {
-    int down;
-    int up;
-    int left;
-    int right;
+    int vertical;
+    int horizontal;
     int a;
     int b;
     int x;
@@ -18,10 +16,8 @@ typedef struct SenseNamedButtons {
 } SenseNamedButtons;
 
 typedef enum SenseButtonNames {
-    SENSE_KEY_DOWN,
-    SENSE_KEY_UP,
-    SENSE_KEY_LEFT,
-    SENSE_KEY_RIGHT,
+    SENSE_KEY_VERTICAL,
+    SENSE_KEY_HORIZONTAL,
     SENSE_KEY_A,
     SENSE_KEY_B,
     SENSE_KEY_X,
@@ -31,7 +27,7 @@ typedef enum SenseButtonNames {
 
 typedef union SenseButtons {
     SenseNamedButtons named;
-    int values[9];
+    int values[7];
 } SenseButtons;
 
 #endif

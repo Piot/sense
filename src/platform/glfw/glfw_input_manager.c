@@ -12,7 +12,7 @@
 
 static tyran_boolean key_is_pressed(const SenseNamedButtons *keys)
 {
-	return (keys->up != 0 || keys->down != 0 || keys->left != 0 || keys->right != 0 || keys->a != 0 || keys->b != 0 || keys->x != 0 || keys->y != 0);
+	return (keys->vertical != 0 || keys->horizontal != 0 ||  keys->a != 0 || keys->b != 0 || keys->x != 0 || keys->y != 0);
 }
 
 static void checkForNewGamepads(SenseGlfwInputManager* self)
@@ -85,29 +85,28 @@ static void scanGamepads(SenseGlfwInputManager* self, SenseButtons gamepadStates
 		target->x = source[GLFW_GAMEPAD_BUTTON_X] == GLFW_TRUE;
 		target->y = source[GLFW_GAMEPAD_BUTTON_Y] == GLFW_TRUE;
 
-
-
-
 		target->menu = source[GLFW_GAMEPAD_BUTTON_START] == GLFW_TRUE;
 
-		target->up = source[GLFW_GAMEPAD_BUTTON_DPAD_UP] == GLFW_TRUE;
+		target->vertical = source[GLFW_GAMEPAD_BUTTON_DPAD_UP] == GLFW_TRUE ? 1000 : 0;
 		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_Y] < -0.01f) {
-			target->up = 1;
+			target->vertical = sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_Y] * 1000;
 		}
 
-		target->down = source[GLFW_GAMEPAD_BUTTON_DPAD_DOWN] == GLFW_TRUE;
+		target->vertical = source[GLFW_GAMEPAD_BUTTON_DPAD_DOWN] == GLFW_TRUE ? -1000 : 0;
 		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_Y] > 0.01f) {
-			target->down = 1;
+            target->vertical = sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_Y] * 1000;
 		}
 
-		target->left = source[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] == GLFW_TRUE;
-		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.01f) {
-			target->left = 1;
-		}
-		target->right = source[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT] == GLFW_TRUE;
+		target->horizontal = source[GLFW_GAMEPAD_BUTTON_DPAD_RIGHT] == GLFW_TRUE ? 1000 : 0;
 		if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] > 0.01f) {
-			target->right = 1;
+			target->horizontal = sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] * 1000;
 		}
+
+        target->horizontal = source[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] == GLFW_TRUE ? -1000 : 0;
+        if (sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] < -0.01f) {
+            target->horizontal = sourceAxes[GLFW_GAMEPAD_AXIS_LEFT_X] * 1000;
+        }
+
 	}
 }
 
