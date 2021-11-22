@@ -15,7 +15,7 @@ static void update(void* _self, SenseInput* target)
 	SenseGlfwInputManager* self = (SenseGlfwInputManager*) _self;
 	senseGlfwInputManagerUpdate(self, target);
 }
-/*
+
 void senseInputManagerCreatePlatformDriver(SenseInputManager* target, bl_size2i screen_size)
 {
 	SenseGlfwInputManager* self = tc_malloc_type(SenseGlfwInputManager);
@@ -24,4 +24,4 @@ void senseInputManagerCreatePlatformDriver(SenseInputManager* target, bl_size2i 
 	target->self = self;
 	target->update_fn = update;
 }
-*/
+

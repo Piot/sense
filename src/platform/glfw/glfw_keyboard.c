@@ -8,67 +8,69 @@
 
 static GlfwKeyboard* g_glfwKeyboard;
 
-int convertKeyToGamepadAndButtonIndex(int key, int* gamepadIndex, SenseNamedButtons* target) {
+
+#define SENSE_BUTTON_VALUE_MAX (1000)
+
+int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons buttons[4]) {
+    int gamepadIndex = -1;
     switch (key) {
         case GLFW_KEY_W:
-            *gamepadIndex = 0;
-            target->vertical = 1000;
+            buttons[0].vertical = valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_S:
-            *gamepadIndex = 0;
-            target->vertical = -1000;
+            buttons[0].vertical = -valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_A:
-            *gamepadIndex = 0;
-            target->horizontal = -1000;
+            buttons[0].horizontal = -valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_D:
-            *gamepadIndex = 0;
-            target->horizontal = 1000;
+            buttons[0].horizontal = valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_SPACE:
-            *gamepadIndex = 0;
-            target->a = 1000;
+            buttons[0].a = valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_LEFT_SHIFT:
-            *gamepadIndex = 0;
-            target->b = 1000;
+            buttons[0].b = valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_Q:
-            *gamepadIndex = 0;
-            target->x = 1000;
+            buttons[0].x = valueToSet;
+            gamepadIndex = 0;
             break;
         case GLFW_KEY_E:
-            *gamepadIndex = 0;
-            target->y = 1000;
+            buttons[0].y = valueToSet;
+            gamepadIndex = 0;
             break;
-
         case GLFW_KEY_I:
-            *gamepadIndex = 1;
-            target->vertical = 1000;
+            buttons[1].vertical = valueToSet;
+            gamepadIndex = 1;
             break;
         case GLFW_KEY_K:
-            *gamepadIndex = 1;
-            target->vertical = -1000;
+            buttons[1].vertical = -valueToSet;
+            gamepadIndex = 1;
             break;
         case GLFW_KEY_J:
-            *gamepadIndex = 1;
-            target->horizontal = -1000;
+            buttons[1].horizontal = -valueToSet;
+            gamepadIndex = 1;
             break;
         case GLFW_KEY_L:
-            *gamepadIndex = 1;
-            target->horizontal = 1000;
+            buttons[1].horizontal = valueToSet;
+            gamepadIndex = 1;
             break;
-
         case GLFW_KEY_M:
-            *gamepadIndex = 1;
-            target->a = SENSE_KEY_A;
+            buttons[1].a = valueToSet;
+            gamepadIndex = 1;
             break;
         default:
             return -1;
     }
 
-    return 0;
+    return gamepadIndex;
 }
 
 
@@ -82,15 +84,11 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
     }
 
     int wasPressed = action == GLFW_PRESS;
-    int gamepadIndex;
-    SenseNamedButtons buttons;
-    tc_mem_clear_type(&buttons);
+    int valueToSet = wasPressed ? SENSE_BUTTON_VALUE_MAX : 0;
 
-    if (wasPressed) {
-        int success = convertKeyToGamepadAndButtonIndex(key, &gamepadIndex, &buttons);
-        if (success < 0) {
-            return;
-        }
+    int gamepadIndex = convertKeyToGamepadAndButtonIndex(key, valueToSet, self->keyboard);
+    if (gamepadIndex < 0) {
+        return;
     }
 
     if (wasPressed && !self->isIndexBound[gamepadIndex]) {
@@ -103,8 +101,6 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
         self->isIndexBound[gamepadIndex] = 1;
     }
 
-    SenseNamedButtons* targetButtons = &g_glfwKeyboard->keyboard[gamepadIndex];
-    *targetButtons = buttons;
 
     self->previousCallback(window, key, scanCode, action, bitFieldMods);
 }
@@ -118,6 +114,7 @@ void glfwKeyboardInit(GlfwKeyboard* self, GLFWwindow* window)
 	}
     self->previousCallback = previousCallback;
 	self->window = window;
+    tc_mem_clear_type(&self->keyboard);
 }
 
 
