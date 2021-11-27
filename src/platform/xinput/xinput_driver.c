@@ -8,6 +8,7 @@
 
 #include <tiny-libc/tiny_libc.h>
 
+#if 0
 
 static void update(void* _self, SenseInput* target)
 {
@@ -23,3 +24,4 @@ void senseInputManagerCreatePlatformDriver(SenseInputManager* target, bl_size2i 
     target->self = self;
     target->update_fn = update;
 }
+#endif
