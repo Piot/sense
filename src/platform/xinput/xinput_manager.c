@@ -22,6 +22,8 @@ static void scanGamepads(SenseXInputManager* self, SenseButtons gamepadStates[8]
             button->horizontal = btn & XINPUT_GAMEPAD_DPAD_RIGHT ? MAX_VALUE : ( btn & XINPUT_GAMEPAD_DPAD_LEFT ? -MAX_VALUE : 0);
             button->a = btn & XINPUT_GAMEPAD_A;
             button->b = btn & XINPUT_GAMEPAD_B;
+            button->leftShoulder = btn & XINPUT_GAMEPAD_LEFT_SHOULDER;
+            button->rightShoulder = btn & XINPUT_GAMEPAD_RIGHT_SHOULDER;
             button->x = btn & XINPUT_GAMEPAD_X;
             button->y = btn & XINPUT_GAMEPAD_Y;
             button->menu = btn & XINPUT_GAMEPAD_START;

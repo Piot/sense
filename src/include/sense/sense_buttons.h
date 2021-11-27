@@ -10,6 +10,8 @@ typedef struct SenseNamedButtons {
     int horizontal;
     int a;
     int b;
+    int leftShoulder;
+    int rightShoulder;
     int x;
     int y;
     int menu;
@@ -20,6 +22,8 @@ typedef enum SenseButtonNames {
     SENSE_KEY_HORIZONTAL,
     SENSE_KEY_A,
     SENSE_KEY_B,
+    SENSE_KEY_LEFT_SHOULDER,
+    SENSE_KEY_RIGHT_SHOULDER,
     SENSE_KEY_X,
     SENSE_KEY_Y,
     SENSE_KEY_MENU,

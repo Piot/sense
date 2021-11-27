@@ -6,10 +6,15 @@
 
 #include <clog/clog.h>
 
+
+
 static GlfwKeyboard* g_glfwKeyboard;
 
 
 #define SENSE_BUTTON_VALUE_MAX (1000)
+
+
+
 
 int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons buttons[4]) {
     int gamepadIndex = -1;
