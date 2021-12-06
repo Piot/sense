@@ -51,6 +51,10 @@ int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons
             buttons[0].y = valueToSet;
             gamepadIndex = 0;
             break;
+        case GLFW_KEY_F:
+            buttons[0].rightShoulder = valueToSet;
+            gamepadIndex = 0;
+            break;
         case GLFW_KEY_I:
             buttons[1].vertical = valueToSet;
             gamepadIndex = 1;
