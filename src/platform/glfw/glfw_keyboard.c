@@ -95,7 +95,7 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
     int wasPressed = action == GLFW_PRESS;
     int valueToSet = wasPressed ? SENSE_BUTTON_VALUE_MAX : 0;
 
-    int gamepadIndex = convertKeyToGamepadAndButtonIndex(key, valueToSet, self->keyboard);
+    int gamepadIndex = convertKeyToGamepadAndButtonIndex(key, valueToSet, &self->keyboard->named);
     if (gamepadIndex < 0) {
         return;
     }
