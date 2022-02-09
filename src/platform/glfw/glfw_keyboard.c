@@ -6,36 +6,33 @@
 
 #include <clog/clog.h>
 
-
-
-static GlfwKeyboard* g_glfwKeyboard;
-
-
 #define SENSE_BUTTON_VALUE_MAX (1000)
-
-
-
 
 int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons buttons[4]) {
     int gamepadIndex = -1;
     switch (key) {
         case GLFW_KEY_W:
+        case GLFW_KEY_UP:
             buttons[0].vertical = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_S:
+        case GLFW_KEY_DOWN:
             buttons[0].vertical = -valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_A:
+        case GLFW_KEY_LEFT:
             buttons[0].horizontal = -valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_D:
+        case GLFW_KEY_RIGHT:
             buttons[0].horizontal = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_SPACE:
+        case GLFW_KEY_ENTER:
             buttons[0].a = valueToSet;
             gamepadIndex = 0;
             break;
@@ -53,6 +50,10 @@ int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons
             break;
         case GLFW_KEY_F:
             buttons[0].rightShoulder = valueToSet;
+            gamepadIndex = 0;
+            break;
+        case GLFW_KEY_ESCAPE:
+            buttons[0].menu = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_I:
@@ -82,6 +83,7 @@ int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons
     return gamepadIndex;
 }
 
+static GlfwKeyboard* g_glfwKeyboard;
 
 static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bitFieldMods) {
     GlfwKeyboard* self = g_glfwKeyboard;
