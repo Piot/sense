@@ -111,9 +111,6 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
         self->boundToSourceIndex[boundIndex] = gamepadIndex;
         self->isIndexBound[gamepadIndex] = 1;
     }
-
-
-    self->previousCallback(window, key, scanCode, action, bitFieldMods);
 }
 
 void glfwKeyboardInit(GlfwKeyboard* self, GLFWwindow* window)
