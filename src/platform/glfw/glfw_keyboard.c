@@ -8,7 +8,7 @@
 
 #define SENSE_BUTTON_VALUE_MAX (1000)
 
-int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons buttons[4]) {
+static int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons buttons[4]) {
     int gamepadIndex = -1;
     switch (key) {
         case GLFW_KEY_W:
