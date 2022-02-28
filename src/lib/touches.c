@@ -25,6 +25,8 @@ static const char* phase_to_string(sense_touch_phase phase)
 		case sense_touch_phase_moved:
 			return "moved";
 	}
+
+	return "unknown";
 }
 
 const char* sense_touch_phase_name(sense_touch_phase phase)
