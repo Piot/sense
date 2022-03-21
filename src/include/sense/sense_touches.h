@@ -7,6 +7,7 @@
 
 #include <basal/basal_vector2.h>
 //#include <latch/mutex.h>
+#include <stddef.h>
 
 typedef enum sense_touch_phase {
 	sense_touch_phase_began,

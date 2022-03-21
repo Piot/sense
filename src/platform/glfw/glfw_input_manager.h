@@ -7,17 +7,17 @@
 
 #include "glfw_keyboard.h"
 #include <basal/basal_size2i.h>
-#include <tyran/tyran_types.h>
+#include <stdbool.h>
 
 struct SenseInput;
 
 typedef struct GamepadState {
-	tyran_boolean isBound;
+	bool isBound;
 } GamepadState;
 
 typedef struct BoundGamepad {
 	int joystickId;
-	tyran_boolean isUsed;
+    bool isUsed;
 } BoundGamepad;
 
 typedef struct SenseGlfwInputManager {

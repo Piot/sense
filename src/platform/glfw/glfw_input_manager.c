@@ -10,7 +10,7 @@
 
 #include <clog/clog.h>
 
-static tyran_boolean key_is_pressed(const SenseNamedButtons *keys)
+static bool key_is_pressed(const SenseNamedButtons *keys)
 {
 	return (keys->vertical != 0 || keys->horizontal != 0 ||  keys->a != 0 || keys->b != 0 || keys->x != 0 || keys->y != 0);
 }
@@ -43,7 +43,7 @@ static void checkForNewGamepads(SenseGlfwInputManager* self)
 			continue;
 		}
 
-		knownState->isBound = TYRAN_TRUE;
+		knownState->isBound = true;
 		const char* name = glfwGetGamepadName(joystickId);
 		CLOG_INFO("detected and bound gamepad %d %s", joystickId, name)
 		if (self->boundGamepadsCount >= self->boundGamepadsMax) {
@@ -52,7 +52,7 @@ static void checkForNewGamepads(SenseGlfwInputManager* self)
 		}
 		BoundGamepad* boundGamepad = &self->boundGamepads[self->boundGamepadsCount++];
 		boundGamepad->joystickId = joystickId;
-		boundGamepad->isUsed = TYRAN_TRUE;
+		boundGamepad->isUsed = true;
 	}
 }
 
