@@ -6,11 +6,10 @@
 #define sense_webassembly_keys_h
 
 #include <sense/sense_keyboard_keys.h>
-#include <tyran/tyran_types.h>
 
 typedef struct sense_webassembly_keys {
-	sense_keyboard_keys keys[8];
-	tyran_boolean device_in_focus;
+    sense_keyboard_keys keys[8];
+    bool device_in_focus;
 } sense_webassembly_keys;
 
 void sense_webassembly_keys_init(sense_webassembly_keys* self, const char* node);

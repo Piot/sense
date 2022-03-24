@@ -6,12 +6,11 @@
 #define sense_webassembly_gamepad_h
 
 #include <sense/sense_keyboard_keys.h>
-#include <tyran/tyran_types.h>
 
 typedef struct sense_webassembly_gamepad {
-	sense_keyboard_keys keys;
-	tyran_boolean device_in_focus;
-	uint8_t bound_gamepad_index;
+    sense_keyboard_keys keys;
+    bool device_in_focus;
+    uint8_t bound_gamepad_index;
 } sense_webassembly_gamepad;
 
 void sense_webassembly_gamepad_init(sense_webassembly_gamepad* self);

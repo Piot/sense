@@ -56,7 +56,7 @@ static void readController(const GCController* controller, sense_input* input)
 		GCExtendedGamepad* egamepad = controller.extendedGamepad;
 		const GCControllerDirectionPad* dpad = egamepad.dpad;
 		read_dpad(dpad, keys);
-		tyran_boolean any_digital_dpad = keys->left | keys->right | keys->up | keys->down;
+		bool any_digital_dpad = keys->left | keys->right | keys->up | keys->down;
 		if (!any_digital_dpad) {
 			read_dpad(egamepad.leftThumbstick, keys);
 		}

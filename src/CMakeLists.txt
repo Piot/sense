@@ -8,7 +8,6 @@ include_directories(include)
 
 include_directories(../deps/basal-c/src/include)
 include_directories(../deps/clog/src/include)
-include_directories(../deps/tyran/src/include)
 include_directories(../deps/tiny-libc/src/include)
 include_directories(../deps/imprint/src/include)
 include_directories(../deps/sense/src/include)

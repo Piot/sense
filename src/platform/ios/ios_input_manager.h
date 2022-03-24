@@ -7,7 +7,7 @@
 
 #include <basal/basal_size2i.h>
 #include <sense/sense_touches.h>
-#include <tyran/tyran_types.h>
+
 
 struct sense_input;
 

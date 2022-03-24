@@ -9,7 +9,6 @@
 #include "sdl_keyboard.h"
 //#include "sdl_touches.h"
 #include <basal/basal_size2i.h>
-#include <tyran/tyran_types.h>
 
 struct sense_input;
 
