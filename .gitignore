@@ -3,3 +3,9 @@ deps/
 old/
 deps.clean*/
 .vs/
+
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.a
+*.cmake
