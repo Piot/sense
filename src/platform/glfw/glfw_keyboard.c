@@ -8,27 +8,29 @@
 
 #define SENSE_BUTTON_VALUE_MAX (1000)
 
+static GlfwKeyboard* g_glfwKeyboard;
+
 static int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamedButtons buttons[4]) {
     int gamepadIndex = -1;
     switch (key) {
         case GLFW_KEY_W:
         case GLFW_KEY_UP:
-            buttons[0].vertical = valueToSet;
+            g_glfwKeyboard->player1Left.vertical.positiveValue = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_S:
         case GLFW_KEY_DOWN:
-            buttons[0].vertical = -valueToSet;
+            g_glfwKeyboard->player1Left.vertical.negativeValue = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_A:
         case GLFW_KEY_LEFT:
-            buttons[0].horizontal = -valueToSet;
+            g_glfwKeyboard->player1Left.horizontal.negativeValue = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_D:
         case GLFW_KEY_RIGHT:
-            buttons[0].horizontal = valueToSet;
+            g_glfwKeyboard->player1Left.horizontal.positiveValue = valueToSet;
             gamepadIndex = 0;
             break;
         case GLFW_KEY_SPACE:
@@ -57,19 +59,19 @@ static int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamed
             gamepadIndex = 0;
             break;
         case GLFW_KEY_I:
-            buttons[1].vertical = valueToSet;
+            g_glfwKeyboard->player2Left.vertical.positiveValue = valueToSet;
             gamepadIndex = 1;
             break;
         case GLFW_KEY_K:
-            buttons[1].vertical = -valueToSet;
+            g_glfwKeyboard->player2Left.vertical.negativeValue = valueToSet;
             gamepadIndex = 1;
             break;
         case GLFW_KEY_J:
-            buttons[1].horizontal = -valueToSet;
+            g_glfwKeyboard->player2Left.horizontal.negativeValue = valueToSet;
             gamepadIndex = 1;
             break;
         case GLFW_KEY_L:
-            buttons[1].horizontal = valueToSet;
+            g_glfwKeyboard->player2Left.horizontal.positiveValue = valueToSet;
             gamepadIndex = 1;
             break;
         case GLFW_KEY_M:
@@ -83,7 +85,7 @@ static int convertKeyToGamepadAndButtonIndex(int key, int valueToSet, SenseNamed
     return gamepadIndex;
 }
 
-static GlfwKeyboard* g_glfwKeyboard;
+
 
 static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bitFieldMods) {
     GlfwKeyboard* self = g_glfwKeyboard;
@@ -94,12 +96,21 @@ static void onKey(GLFWwindow* window, int key, int scanCode, int action, int bit
         return;
     }
 
+
     int wasPressed = action == GLFW_PRESS;
     int valueToSet = wasPressed ? SENSE_BUTTON_VALUE_MAX : 0;
 
     int gamepadIndex = convertKeyToGamepadAndButtonIndex(key, valueToSet, &self->keyboard->named);
     if (gamepadIndex < 0) {
         return;
+    }
+
+    if (gamepadIndex == 0) {
+        self->keyboard[0].named.horizontal = self->player1Left.horizontal.positiveValue -  self->player1Left.horizontal.negativeValue;
+        self->keyboard[0].named.vertical = self->player1Left.vertical.positiveValue -  self->player1Left.vertical.negativeValue;
+    } else if (gamepadIndex == 1) {
+        self->keyboard[1].named.horizontal = self->player2Left.horizontal.positiveValue -  self->player2Left.horizontal.negativeValue;
+        self->keyboard[1].named.vertical = self->player2Left.vertical.positiveValue -  self->player2Left.vertical.negativeValue;
     }
 
     if (wasPressed && !self->isIndexBound[gamepadIndex]) {

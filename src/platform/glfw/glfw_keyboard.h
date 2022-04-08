@@ -8,10 +8,23 @@
 #include <GLFW/glfw3.h>
 #include <sense/sense_buttons.h>
 
+typedef struct GlfwKeyboardAxis {
+    int positiveValue;
+    int negativeValue;
+} GlfwKeyboardAxis;
+
+typedef struct GlfwKeyboardStick {
+    GlfwKeyboardAxis horizontal;
+    GlfwKeyboardAxis vertical;
+} GlfwKeyboardStick;
+
 typedef struct GlfwKeyboard {
 	SenseButtons keyboard[4];
     int boundToSourceIndex[4];
     int isIndexBound[4];
+
+    GlfwKeyboardStick player1Left;
+    GlfwKeyboardStick player2Left;
     size_t boundedCount;
 	GLFWwindow* window;
     GLFWkeyfun previousCallback;
