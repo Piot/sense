@@ -9,6 +9,7 @@
 #include <sense/sense_touches.h>
 
 struct SenseInput;
+struct ImprintAllocator;
 
 typedef void (*sense_input_update_fn)(void* driver, struct SenseInput* input);
 typedef void (*sense_input_touch_fn)(void* driver, size_t id, sense_touch_phase phase, bl_vector2i position);
@@ -19,7 +20,7 @@ typedef struct SenseInputManager {
 	sense_input_touch_fn touch_fn;
 } SenseInputManager;
 
-void senseInputManagerCreatePlatformDriver(SenseInputManager* self, bl_size2i screen_size);
+void senseInputManagerCreatePlatformDriver(SenseInputManager* self, struct ImprintAllocator* allocator, bl_size2i screen_size);
 void senseInputManagerUpdate(SenseInputManager* self, struct SenseInput* input);
 void senseInputManagerTouch(SenseInputManager* self, size_t id, sense_touch_phase phase, bl_vector2i position);
 

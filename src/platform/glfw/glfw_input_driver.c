@@ -5,10 +5,8 @@
 #include "glfw_input_manager.h"
 #include <sense/sense_input.h>
 #include <sense/sense_input_manager.h>
-
-#include <tiny-libc/tiny_libc.h>
-
 #include <breathe/breathe_app.h> // to get GLFWWindow
+#include <imprint/allocator.h>
 
 static void update(void* _self, SenseInput* target)
 {
@@ -16,9 +14,9 @@ static void update(void* _self, SenseInput* target)
 	senseGlfwInputManagerUpdate(self, target);
 }
 
-void senseInputManagerCreatePlatformDriver(SenseInputManager* target, bl_size2i screen_size)
+void senseInputManagerCreatePlatformDriver(SenseInputManager* target, struct ImprintAllocator* allocator, bl_size2i screen_size)
 {
-	SenseGlfwInputManager* self = tc_malloc_type(SenseGlfwInputManager);
+	SenseGlfwInputManager* self = IMPRINT_ALLOC_TYPE(allocator, SenseGlfwInputManager);
 	senseGlfwInputManagerInit(self, g_main->window,  screen_size);
 
 	target->self = self;
