@@ -73,7 +73,7 @@ static int setDigital(Stik* stik, int* target, InputHandle_t controllerHandle, c
 
 static void setIntFromFloat(int* target, float data)
 {
-    *target = (int)(data * 32767.0f);
+    *target = (int)(data * 1000.0f); // SWAMP_FIXED_FACTOR
 }
 
 
