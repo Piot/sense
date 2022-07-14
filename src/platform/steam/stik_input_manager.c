@@ -28,6 +28,7 @@ static int checkForNewGamepads(SenseStikInputManager* self)
 
             int worked = stikActivateActionSet(&self->stik, selectedControllerHandle, self->actionSetHandle);
             if (worked < 0) {
+                CLOG_SOFT_ERROR("could not set action set")
                 return worked;
             }
         } else {
@@ -52,28 +53,64 @@ static int checkForNewGamepads(SenseStikInputManager* self)
 
 static void setDigitalFromData(int* target, InputDigitalActionData_t data)
 {
+    CLOG_WARN("Setting digital action %d %d", data.state, data.active)
     *target = data.state == 0 ? 0 : 1;
 }
 
 static int setDigital(Stik* stik, int* target, InputHandle_t controllerHandle, const char* digitalActionName)
 {
     InputDigitalActionHandle_t digitalActionHandle = stikGetDigitalActionHandle(stik, digitalActionName);
-    CLOG_OUTPUT_STDERR("stik digital action '%s' %d", digitalActionName, digitalActionHandle);
     if (digitalActionHandle == 0) {
+        CLOG_SOFT_ERROR("stik digital action failed '%s' %d", digitalActionName, digitalActionHandle);
         return -5;
     }
 
     InputDigitalActionData_t data = stikGetDigitalActionData(stik, controllerHandle, digitalActionHandle);
-    CLOG_OUTPUT_STDERR("stik %d digital action data %d (active:%d)", digitalActionHandle, data.state, data.active);
     setDigitalFromData(target, data);
 
     return 0;
 }
 
+static void setIntFromFloat(int* target, float data)
+{
+    *target = (int)(data * 32767.0f);
+}
+
+
+static void setAnalogPairFromData(int* targetX, int *targetY, InputAnalogActionData_t data)
+{
+    CLOG_WARN("setting target  %f %f %d %d", data.x, data.y, data.active, data.sourceMode);
+    setIntFromFloat(targetX, data.x);
+    setIntFromFloat(targetY, data.y);
+}
+
+
+static int setAnalog(Stik* stik, int* targetX, int* targetY, InputHandle_t controllerHandle, const char* analogActionName)
+{
+    InputAnalogActionHandle_t analogActionHandle = stikGetAnalogActionHandle(stik, analogActionName);
+    if (analogActionHandle == 0) {
+        CLOG_SOFT_ERROR("stik analog action failed '%s' %d", analogActionName, analogActionHandle);
+        return -5;
+    }
+
+    InputAnalogActionData_t data = stikGetAnalogActionData(stik, controllerHandle, analogActionHandle);
+    setAnalogPairFromData(targetX, targetY, data);
+
+    return 0;
+}
+
+
 static int getGamepadState(Stik* stik, InputHandle_t inputHandle, SenseNamedButtons* button)
 {
     setDigital(stik, &button->leftShoulder, inputHandle, "Interact");
+    setDigital(stik, &button->menu, inputHandle, "Menu");
+
     setDigital(stik, &button->a,  inputHandle,  "Ability1");
+    setDigital(stik, &button->b,  inputHandle,  "Ability2");
+    setDigital(stik, &button->x,  inputHandle,  "Ability3");
+    setDigital(stik, &button->y,  inputHandle,  "Ability4");
+
+    setAnalog(stik, &button->horizontal, &button->vertical, inputHandle, "Move");
 
     return 0;
 }
@@ -120,7 +157,7 @@ void senseStikInputManagerUpdate(SenseStikInputManager*self, SenseInput*input)
     if (self->actionSetHandle == 0) {
         self->actionSetHandle = stikGetActionSetHandle(&self->stik, "InGame");
         if (self->actionSetHandle == 0) {
-            CLOG_ERROR("action set not found %d", self->actionSetHandle)
+            CLOG_SOFT_ERROR("action set not found %d", self->actionSetHandle)
             return;
         }
         CLOG_WARN("action set found:%d", self->actionSetHandle)
