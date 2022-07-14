@@ -102,7 +102,7 @@ static int setAnalog(Stik* stik, int* targetX, int* targetY, InputHandle_t contr
 
 static int getGamepadState(Stik* stik, InputHandle_t inputHandle, SenseNamedButtons* button)
 {
-    setDigital(stik, &button->leftShoulder, inputHandle, "Interact");
+    setDigital(stik, &button->rightShoulder, inputHandle, "Interact");
     setDigital(stik, &button->menu, inputHandle, "Menu");
 
     setDigital(stik, &button->a,  inputHandle,  "Ability1");
