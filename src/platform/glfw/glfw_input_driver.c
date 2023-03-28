@@ -14,6 +14,7 @@ static void update(void* _self, SenseInput* target)
 	senseGlfwInputManagerUpdate(self, target);
 }
 
+#if !WIN32
 void senseInputManagerCreatePlatformDriver(SenseInputManager* target, struct ImprintAllocator* allocator, bl_size2i screen_size)
 {
 	SenseGlfwInputManager* self = IMPRINT_ALLOC_TYPE(allocator, SenseGlfwInputManager);
@@ -22,4 +23,5 @@ void senseInputManagerCreatePlatformDriver(SenseInputManager* target, struct Imp
 	target->self = self;
 	target->update_fn = update;
 }
+#endif
 

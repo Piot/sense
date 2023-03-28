@@ -44,7 +44,7 @@ static void checkForNewGamepads(SenseGlfwInputManager* self)
 		}
 
 		knownState->isBound = true;
-		const char* name = glfwGetGamepadName(joystickId);
+		CLOG_EXECUTE(const char* name = glfwGetGamepadName(joystickId);)
 		CLOG_INFO("detected and bound gamepad %d %s", joystickId, name)
 		if (self->boundGamepadsCount >= self->boundGamepadsMax) {
 			CLOG_ERROR("too many gamepads")
