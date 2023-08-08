@@ -1,4 +1,13 @@
-cmake_minimum_required(VERSION 3.17.3)
+cmake_minimum_required(VERSION 3.16.3)
 project(sense C)
 
-add_subdirectory("lib")
+add_subdirectory(deps/piot/basal-c/src/lib)
+add_subdirectory(deps/piot/clog/src/lib)
+add_subdirectory(deps/piot/tiny-libc/src/lib)
+
+
+
+add_subdirectory(lib)
+
+
+

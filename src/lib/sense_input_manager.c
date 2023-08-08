@@ -9,7 +9,7 @@ void senseInputManagerUpdate(SenseInputManager* self, struct SenseInput* input)
 	self->update_fn(self->self, input);
 }
 
-void senseInputManagerTouch(SenseInputManager* self, size_t id, sense_touch_phase phase, bl_vector2i position)
+void senseInputManagerTouch(SenseInputManager* self, size_t id, sense_touch_phase phase, BlVector2i position)
 {
 	self->touch_fn(self->self, id, phase, position);
 }
