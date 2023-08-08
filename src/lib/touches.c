@@ -34,7 +34,7 @@ const char* sense_touch_phase_name(sense_touch_phase phase)
 	return phase_to_string(phase);
 }
 
-#if defined CLOG_LOG_ENABLED
+#if defined CLOG_LOG_ENABLED && 0
 static void sense_touch_debug(const sense_touch* self)
 {
 	(void) self;
