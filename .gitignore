@@ -8,3 +8,7 @@ CMakeCache.txt
 Makefile
 *.a
 cmake_install.cmake
+.cmake/
+Testing/
+*.ninja*
+ninja*
